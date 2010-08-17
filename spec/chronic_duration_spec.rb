@@ -33,6 +33,12 @@ describe ChronicDuration, '.parse' do
     ChronicDuration.raise_exceptions = false
   end
   
+  it "should raise an exception if the string can't be parsed and @@raise_exceptions is set to true" do
+    ChronicDuration.raise_exceptions = true
+    lambda { ChronicDuration.parse('Day') }.should raise_exception(ChronicDuration::DurationParseError)
+    ChronicDuration.raise_exceptions = false
+  end
+  
   it "should return a float if seconds are in decimals" do
     ChronicDuration.parse('12 mins 3.141 seconds').is_a?(Float).should be_true
   end

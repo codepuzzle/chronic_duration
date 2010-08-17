@@ -110,14 +110,23 @@ private
   end
   
   def calculate_from_words(string)
-    val = 0
+    val = nil
     words = string.split(' ')
     words.each_with_index do |v, k|
       if v =~ float_matcher
-        val += (convert_to_number(v) * duration_units_seconds_multiplier(words[k + 1] || 'seconds'))
+        word_val = (convert_to_number(v) * duration_units_seconds_multiplier(words[k + 1] || 'seconds'))
+        if val
+          val += word_val
+        else
+          val = word_val
+        end
       end
     end
-    val
+    if !words.empty? && val.nil? && ChronicDuration.raise_exceptions
+      raise DurationParseError, "An invalid string was being passed to parsed."
+    else
+      val
+    end
   end
   
   def cleanup(string)
