@@ -223,6 +223,7 @@ private
       'week'    => 'weeks',
       'w'       => 'weeks',
       'months'  => 'months',
+      'month'   => 'months',
       'mos'     => 'months',
       'years'   => 'years',
       'year'    => 'years',
